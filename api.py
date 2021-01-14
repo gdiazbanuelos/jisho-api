@@ -21,6 +21,7 @@ def greeting():
 @app.route('/<target>')
 def makeApiCall(target):
     base_url = 'https://jisho.org/api/v1/search/words?keyword='
+    target = target.lower()
     api_url = base_url+target
 
     response = requests.get(api_url)
