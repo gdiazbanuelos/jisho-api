@@ -3,6 +3,7 @@ import flask
 import json
 from flask import Flask, render_template
 import requests
+from romanji import romanjiDic
 
 app = flask.Flask(__name__)
 
@@ -11,6 +12,7 @@ app = flask.Flask(__name__)
 def set_headers(response):
     response.headers['Access-Control-Allow-Origin'] = '*'
     return response
+
 
 
 @app.route('/')
@@ -33,10 +35,18 @@ def makeApiCall(target):
         translation = dict1['data'][0]['senses'][0]['english_definitions']
         translation = ', '.join(translation)
 
+        pronunciation = ''
+        for x in range(0, len(reading)):
+            if reading[x] != 'っ':
+                pronunciation += romanjiDic[reading[x]]
+            else:
+                pronunciation += romanjiDic[reading[x+1]][0]
+
         outDict = {
+            'pronunciation': pronunciation,
             'reading': reading,
             'parts_of_speech': parts_of_speech,
-            'translation' : translation        
+            'translation' : translation
         }
         
     outDict = json.dumps(outDict, ensure_ascii=False)
@@ -46,3 +56,5 @@ def makeApiCall(target):
 if __name__ == '__main__':
     print(makeApiCall('学生'))
     print(makeApiCall('買う'))
+    print(makeApiCall('一人っ子'))
+    print(makeApiCall('持ってくる'))
