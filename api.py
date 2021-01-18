@@ -54,7 +54,8 @@ def makeApiCall(target):
 
 
 if __name__ == '__main__':
-    print(makeApiCall('学生'))
-    print(makeApiCall('買う'))
-    print(makeApiCall('一人っ子'))
-    print(makeApiCall('持ってくる'))
+    #print(makeApiCall('学生'))
+    #print(makeApiCall('買う'))
+    #print(makeApiCall('一人っ子'))
+    #print(makeApiCall('持ってくる'))
+    print(makeApiCall('dog'))
