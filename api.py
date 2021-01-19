@@ -37,10 +37,17 @@ def makeApiCall(target):
 
         pronunciation = ''
         for x in range(0, len(reading)):
-            if reading[x] != 'っ':
-                pronunciation += romanjiDic[reading[x]]
-            else:
+            if reading[x] in ['っ','ッ']:
                 pronunciation += romanjiDic[reading[x+1]][0]
+            elif reading[x] == 'ー':
+                pronunciation += romanjiDic[reading[x-1]][-1]
+            elif reading[x] in ['ゃ','ゅ','ょ','ャ','ュ','ョ']:
+                if reading[x-1] in ['し','ち','じ','シ','チ','ジ']:
+                    pronunciation = pronunciation[:-1] + romanjiDic[reading[x]][-1]
+                else:
+                    pronunciation = pronunciation[:-1] + romanjiDic[reading[x]]
+            else:
+                pronunciation += romanjiDic[reading[x]]
 
         outDict = {
             'pronunciation': pronunciation,
@@ -58,4 +65,12 @@ if __name__ == '__main__':
     #print(makeApiCall('買う'))
     #print(makeApiCall('一人っ子'))
     #print(makeApiCall('持ってくる'))
-    print(makeApiCall('dog'))
+    #print(makeApiCall('ice cream'))
+    #print(makeApiCall('soccer'))
+    #print(makeApiCall('milk'))
+    print(makeApiCall('料理人'))
+    print(makeApiCall('東京'))
+    print(makeApiCall('とうきょうかぶしきしじょう'))
+    print(makeApiCall('徐々'))
+    
+
