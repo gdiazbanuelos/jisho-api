@@ -49,6 +49,10 @@ def makeApiCall(target):
             else:
                 pronunciation += romanjiDic[reading[x]]
 
+        pronunciation = pronunciation.replace('nm', 'mm')
+        pronunciation = pronunciation.replace('nb', 'mb')
+        pronunciation = pronunciation.replace('np', 'mp')
+
         outDict = {
             'pronunciation': pronunciation,
             'reading': reading,
@@ -68,9 +72,12 @@ if __name__ == '__main__':
     #print(makeApiCall('ice cream'))
     #print(makeApiCall('soccer'))
     #print(makeApiCall('milk'))
-    print(makeApiCall('料理人'))
-    print(makeApiCall('東京'))
-    print(makeApiCall('とうきょうかぶしきしじょう'))
-    print(makeApiCall('徐々'))
-    
-
+    #print(makeApiCall('料理人'))
+    #print(makeApiCall('東京'))
+    #print(makeApiCall('とうきょうかぶしきしじょう'))
+    #print(makeApiCall('徐々'))
+    #print(makeApiCall('コンマ'))
+    #print(makeApiCall('本'))
+    #print(makeApiCall('さんぽ'))
+    #print(makeApiCall('とんぼ'))
+    print(makeApiCall('computer'))
