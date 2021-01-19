@@ -29,11 +29,25 @@ def makeApiCall(target):
     response = requests.get(api_url)
     if response.status_code == 200:
         dict1 = response.json()
-        reading = dict1['data'][0]['japanese'][0]['reading']
-        parts_of_speech = dict1['data'][0]['senses'][0]['parts_of_speech']
+
+        index = 0
+        for x in range(0, len(dict1['data'])):
+            if (dict1['data'][x]['slug'][0]) == target:
+                index = x
+                break
+
+        reading = dict1['data'][index]['japanese'][0]['reading']
+        parts_of_speech = dict1['data'][index]['senses'][0]['parts_of_speech']
         parts_of_speech = ', '.join(parts_of_speech)
-        translation = dict1['data'][0]['senses'][0]['english_definitions']
+        translation = dict1['data'][index]['senses'][0]['english_definitions']
         translation = ', '.join(translation)
+        if('word' in dict1['data'][index]['japanese'][0]):
+            kanji = dict1['data'][index]['japanese'][0]['word']
+            kanji = ''.join(kanji)
+        else:
+            kanji = ''
+        tags = dict1['data'][index]['senses'][0]['tags']
+        tags = ', '.join(tags)
 
         pronunciation = ''
         for x in range(0, len(reading)):
@@ -56,8 +70,10 @@ def makeApiCall(target):
         outDict = {
             'pronunciation': pronunciation,
             'reading': reading,
+            'kanji': kanji,
             'parts_of_speech': parts_of_speech,
-            'translation' : translation
+            'translation' : translation,
+            'tags' : tags
         }
         
     outDict = json.dumps(outDict, ensure_ascii=False)
@@ -65,19 +81,23 @@ def makeApiCall(target):
 
 
 if __name__ == '__main__':
-    #print(makeApiCall('学生'))
-    #print(makeApiCall('買う'))
-    #print(makeApiCall('一人っ子'))
-    #print(makeApiCall('持ってくる'))
-    #print(makeApiCall('ice cream'))
-    #print(makeApiCall('soccer'))
-    #print(makeApiCall('milk'))
-    #print(makeApiCall('料理人'))
-    #print(makeApiCall('東京'))
-    #print(makeApiCall('とうきょうかぶしきしじょう'))
-    #print(makeApiCall('徐々'))
-    #print(makeApiCall('コンマ'))
-    #print(makeApiCall('本'))
-    #print(makeApiCall('さんぽ'))
-    #print(makeApiCall('とんぼ'))
+    print(makeApiCall('学生'))
+    print(makeApiCall('買う'))
+    print(makeApiCall('一人っ子'))
+    print(makeApiCall('持ってくる'))
+    print(makeApiCall('ice cream'))
+    print(makeApiCall('soccer'))
+    print(makeApiCall('milk'))
+    print(makeApiCall('料理人'))
+    print(makeApiCall('東京'))
+    print(makeApiCall('とうきょうかぶしきしじょう'))
+    print(makeApiCall('徐々'))
+    print(makeApiCall('コンマ'))
+    print(makeApiCall('本'))
+    print(makeApiCall('さんぽ'))
+    print(makeApiCall('とんぼ'))
     print(makeApiCall('computer'))
+    print(makeApiCall('apple'))
+    print(makeApiCall('here'))
+    print(makeApiCall('歳'))
+    print(makeApiCall('枚'))
